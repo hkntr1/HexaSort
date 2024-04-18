@@ -9,15 +9,14 @@ public class Stack : MonoBehaviour
     [SerializeField] private GameObject stack;
     void Start()
     {
-       // int stackVariety = Random.Range(0, 3);
-        int stackCount = Random.Range(MinStackCount, MaxStackCount);
-        Debug.Log(stackCount+":Stack Count");
+       CreateStack();
+    }
+    void CreateStack()
+    {
+         int stackCount = Random.Range(MinStackCount, MaxStackCount);
         int firstSection=Random.Range(0, stackCount);
-        Debug.Log(firstSection+":First Section");
         int secondSection=Random.Range(firstSection, stackCount);
-        Debug.Log(secondSection+":second Section");
         int colorIndex = Random.Range(0, stackList.Count);
-        Debug.Log(colorIndex+":Color Index");
         int oldColorIndex = colorIndex;
         for (int i = 0; i < stackCount; i++)
         {
@@ -44,6 +43,5 @@ public class Stack : MonoBehaviour
             stackObject.transform.localPosition = new Vector3(0, yPos, 0);
         }
     }
-
     
 }
