@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 572942760}
   - component: {fileID: 572942761}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: WaveController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,12 +422,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9854d1e1b56e5ce4892c960a48f92893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 3969947936659071083, guid: a5c00c94131232c4dae04e2be7d65b91, type: 3}
+  stack: {fileID: 1732242087104010962, guid: a5c00c94131232c4dae04e2be7d65b91, type: 3}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
   numberOfTargets: 3
   sideMargin: 0.2
+  stacks: []
   spawnPoints: []
 --- !u!1 &832575517
 GameObject:
