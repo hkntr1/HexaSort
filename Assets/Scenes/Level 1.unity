@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &118803658 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2324300597954791498, guid: 6d81d8f754e5fc942b28015076074071,
@@ -207,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &154141589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9163631635460477426, guid: 6d81d8f754e5fc942b28015076074071,
@@ -249,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &536612875 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7172342537535573459, guid: 6d81d8f754e5fc942b28015076074071,
@@ -630,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &572942759
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +730,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
+--- !u!1 &712584877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712584879}
+  - component: {fileID: 712584878}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &712584878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712584877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83662ebd77c1c14fb5fbef6449df06f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+--- !u!4 &712584879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712584877}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797809011
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &892217386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3516178132655008962, guid: 6d81d8f754e5fc942b28015076074071,
@@ -921,6 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &910524500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3142307197353130678, guid: 6d81d8f754e5fc942b28015076074071,
@@ -963,6 +1017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1116423268 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4583501711833054135, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1005,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1117085934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 614554561429278667, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1047,6 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1128853041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4320826057161994545, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1089,6 +1146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1522572583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6141355054449519838, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1131,6 +1189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1529121975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1801042371 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1735227006611640740, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1266,6 +1326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &1868888952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1132346493433458194, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1308,6 +1369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &2023225243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1962786679795365555, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1350,6 +1412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1 &2098583260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2982098454934266051, guid: 6d81d8f754e5fc942b28015076074071,
@@ -1392,6 +1455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 1
   CurrentStack: {fileID: 0}
+  neighborHexagons: []
 --- !u!1001 &7086176725469137484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,6 +1478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 102269492212880923, guid: 6d81d8f754e5fc942b28015076074071,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 102269492212880923, guid: 6d81d8f754e5fc942b28015076074071,
         type: 3}
@@ -1659,6 +1728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448610247152752220, guid: 6d81d8f754e5fc942b28015076074071,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6448610247152752220, guid: 6d81d8f754e5fc942b28015076074071,
         type: 3}
@@ -1913,3 +1987,4 @@ SceneRoots:
   - {fileID: 572942760}
   - {fileID: 1529121977}
   - {fileID: 797809012}
+  - {fileID: 712584879}

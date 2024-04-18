@@ -37,7 +37,6 @@ public class WaveController : MonoBehaviour
 
     void CalculateHitPoint()
     {
-
         Ray leftRay = mainCamera.ScreenPointToRay(new Vector3(0, Screen.height / 5, 0));
         Ray rightRay = mainCamera.ScreenPointToRay(new Vector3(Screen.width, Screen.height / 5, 0));
 

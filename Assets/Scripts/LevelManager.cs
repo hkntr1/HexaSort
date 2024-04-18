@@ -6,12 +6,10 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public List<GridManager> gridManagers;
-     public static Action onCheckNeeded;
+    public static Action onCheckNeeded;
     private void Start() {
         FindNeighbours();
-         onCheckNeeded += () =>{
-            CheckAll();
-        };
+        onCheckNeeded += CheckAll;   
     }
     public void FindNeighbours()
     {
@@ -22,9 +20,10 @@ public class LevelManager : MonoBehaviour
     }
     public void CheckAll()
     {
-      foreach (var gridManager in gridManagers)
+        foreach (var gridManager in gridManagers)
         {
             gridManager.CheckColorMatch();
         }
-    }
+    }  
+     
 }

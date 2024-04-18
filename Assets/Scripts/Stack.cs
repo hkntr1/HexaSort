@@ -48,8 +48,6 @@ public class Stack : MonoBehaviour
     }
   public void AddStackTileToStack(StackObject newTile)
     {
-       
-       
         newTile.transform.parent = transform;
         newTile.transform.localPosition = new Vector3(0, stackTilesObjects.Count * 0.03f, 0);
         stackTilesObjects.Add(newTile);
@@ -59,14 +57,40 @@ public class Stack : MonoBehaviour
    {
      Color color = stackTilesObjects[stackTilesObjects.Count-1].color;
      for (int i = stackTilesObjects.Count-1; i >= 0; i--)
-     {
+     { 
       if(stackTilesObjects[i].color==color)
       {
         otherStack.AddStackTileToStack(stackTilesObjects[i]);
         stackTilesObjects.RemoveAt(i);
-  
+        
       } 
       else return;
+     }
+   }
+   public void CheckBoom()
+   {
+    if(stackTilesObjects.Count==0)
+    {
+      return;
+    }
+    Color color = stackTilesObjects[stackTilesObjects.Count-1].color;
+    List<StackObject> stackObjects = new List<StackObject>();
+    for (int i = stackTilesObjects.Count-1; i >= 0; i--)
+     { 
+      if(stackTilesObjects[i].color==color)
+      {
+        stackObjects.Add(stackTilesObjects[i]);
+      }
+     }
+    if(stackObjects.Count>=10)
+     {
+       foreach (var stackObject in stackObjects)
+       {
+         ScoreManager.instance.ChangeScore(1);
+         stackTilesObjects.Remove(stackObject);
+         Destroy(stackObject.gameObject);
+       }
+       LevelManager.onCheckNeeded.Invoke();
      }
    }
 }

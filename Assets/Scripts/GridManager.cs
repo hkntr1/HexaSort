@@ -48,18 +48,31 @@ public class GridManager : MonoBehaviour
                 if (neighbor.CurrentStack.stackTilesObjects.Count == 0 )
                 {
                     neighbor.CurrentStack=null;
+                    neighbor.isEmpty=true;
                     return;
                 }
                 if (CurrentStack.stackTilesObjects.Count == 0)
                 {
                     CurrentStack=null;
+                    neighbor.isEmpty=true;
                     return;
                 }
                 if (neighbor.CurrentStack.stackTilesObjects[neighbor.CurrentStack.stackTilesObjects.Count-1].color == CurrentStack.stackTilesObjects[CurrentStack.stackTilesObjects.Count-1].color)
                 {
                    neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
+                   if (neighbor.CurrentStack.stackTilesObjects.Count == 0)
+                   {
+                       neighbor.CurrentStack=null;
+                       neighbor.isEmpty=true;
+                   }
+                   if (CurrentStack.stackTilesObjects.Count == 0)
+                    {
+                          CurrentStack=null;
+                          isEmpty=true;
+                    }
                 }
               }
          }
+         CurrentStack?.CheckBoom();
    }    
 }
