@@ -8,6 +8,7 @@ public class Stack : MonoBehaviour
     public List<StackTile> stackList;   
     public bool isPlaced;
     [SerializeField] private GameObject stack;
+    public List<StackTile> stackTiles;
     void Start()
     {
        CreateStack();
@@ -24,6 +25,7 @@ public class Stack : MonoBehaviour
             GameObject stackObject = Instantiate(stack);
             stackObject.GetComponent<MeshRenderer>().material.color = stackList[colorIndex].color;
             stackObject.name = stackList[colorIndex].name;
+            stackTiles.Add(stackList[colorIndex]);
             if(i==firstSection)
             { 
               stackList.RemoveAt(colorIndex);
