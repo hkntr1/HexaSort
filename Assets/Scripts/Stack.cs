@@ -6,6 +6,7 @@ public class Stack : MonoBehaviour
 {
     public int MaxStackCount,MinStackCount;
     public List<StackTile> stackList;   
+    public bool isPlaced;
     [SerializeField] private GameObject stack;
     void Start()
     {

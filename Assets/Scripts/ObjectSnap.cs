@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 public class ObjectSnap : MonoBehaviour
 {
-    private GameObject selectedObject;
+    private Stack selectedStack;
     private Vector3 offset;
     private bool isDragging = false;
     private Vector3 selectedObjectOriginalPosition;
@@ -17,20 +17,22 @@ public class ObjectSnap : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit,5f, stackObjectLayerMask))
             {
-                selectedObject = hit.transform.parent.gameObject;
-                selectedObjectOriginalPosition = selectedObject.transform.position;
-                offset = selectedObject.transform.position - hit.point;
+                
+                selectedStack = hit.transform.parent.GetComponent<Stack>();
+                if(selectedStack.isPlaced) return;
+                selectedObjectOriginalPosition = selectedStack.transform.position;
+                offset = selectedStack.transform.position - hit.point;
                 isDragging = true;
                 Vector3 newPosition = hit.transform.position;
-                newPosition.y = selectedObject.transform.position.y+0.01f; // Y eksenini sabit tut
-                selectedObject.transform.position = newPosition;
+                newPosition.y = selectedStack.transform.position.y+0.01f; // Y eksenini sabit tut
+                selectedStack.transform.position = newPosition;
             }
         }
 
         if (isDragging && Input.GetMouseButton(0))
         {   
             RaycastHit groundHit;
-            Ray groundRay = new Ray(selectedObject.transform.position, Vector3.down);                   
+            Ray groundRay = new Ray(selectedStack.transform.position, Vector3.down);                   
             if (Physics.Raycast(groundRay, out groundHit, Mathf.Infinity))
             {
                 if(groundHit.collider.CompareTag("Tile"))
@@ -49,8 +51,8 @@ public class ObjectSnap : MonoBehaviour
             if (Physics.Raycast(ray, out hit,5f))
             {    
                 Vector3 newPosition = hit.point + offset;
-                newPosition.y = selectedObject.transform.position.y; // Y eksenini sabit tut
-                selectedObject.transform.position = newPosition;
+                newPosition.y = selectedStack.transform.position.y; // Y eksenini sabit tut
+                selectedStack.transform.position = newPosition;
             }
         }
 
@@ -84,15 +86,16 @@ public class ObjectSnap : MonoBehaviour
     }
     void WrongPlace()
     {
-        selectedObject.transform.position = selectedObjectOriginalPosition; 
-        selectedObject = null;
+        selectedStack.transform.position = selectedObjectOriginalPosition; 
+        selectedStack = null;
     }
     void TruePlace()
     {
         selectedGrid.GetComponent<GridManager>().isEmpty = false;
-        selectedGrid.GetComponent<GridManager>().CurrentStack = selectedObject.GetComponent<Stack>();
-        WaveController.onItemCollected?.Invoke(selectedObject.GetComponent<Stack>());
-        selectedObject.transform.position = selectedGrid.transform.position+Vector3.up*0.02f;
-        selectedObject = null;
+        selectedGrid.GetComponent<GridManager>().CurrentStack = selectedStack.GetComponent<Stack>();
+        selectedStack.isPlaced = true;
+        WaveController.onItemCollected?.Invoke(selectedStack);
+        selectedStack.transform.position = selectedGrid.transform.position+Vector3.up*0.02f;
+        selectedStack = null;
     }
 }
