@@ -36,6 +36,10 @@ public class ObjectSnap : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit,5f))
             {
+                if(hit.collider.CompareTag("Tile"))
+            { //RENGİ DEĞİŞEN GRİDİ TUT, EĞER DEĞEN O DEĞİLSE RENGİNİ ESKİ HALİNE GETİR
+                    hit.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                }
                 Vector3 newPosition = hit.point + offset;
                 newPosition.y = selectedObject.transform.position.y; // Y eksenini sabit tut
                 selectedObject.transform.position = newPosition;
