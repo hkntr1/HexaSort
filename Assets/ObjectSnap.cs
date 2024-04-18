@@ -6,6 +6,7 @@ public class ObjectSnap : MonoBehaviour
     private Vector3 offset;
     private bool isDragging = false;
     private Vector3 selectedObjectOriginalPosition;
+    public Renderer selectedGrid; // Stack objesi
 
     // Yalnızca belirli layer'daki objelerle çalışmak için
     public LayerMask stackObjectLayerMask,gridLayerMask;
@@ -16,7 +17,6 @@ public class ObjectSnap : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             if (Physics.Raycast(ray, out hit,5f, stackObjectLayerMask))
             {
                 selectedObject = hit.transform.parent.gameObject;
@@ -30,16 +30,26 @@ public class ObjectSnap : MonoBehaviour
         }
 
         if (isDragging && Input.GetMouseButton(0))
-        {
+        {   
+            RaycastHit groundHit;
+            Ray groundRay = new Ray(selectedObject.transform.position, Vector3.down);                   
+            if (Physics.Raycast(groundRay, out groundHit, Mathf.Infinity))
+            {
+                if(groundHit.collider.CompareTag("Tile"))
+                {    
+                    SelectGrid(groundHit);
+                }
+                else
+                {
+                    CancelGrid();
+                }
+            }
+          
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit,5f))
-            {
-                if(hit.collider.CompareTag("Tile"))
-            { //RENGİ DEĞİŞEN GRİDİ TUT, EĞER DEĞEN O DEĞİLSE RENGİNİ ESKİ HALİNE GETİR
-                    hit.gameObject.GetComponent<Renderer>().material.color = Color.green;
-                }
+            {    
                 Vector3 newPosition = hit.point + offset;
                 newPosition.y = selectedObject.transform.position.y; // Y eksenini sabit tut
                 selectedObject.transform.position = newPosition;
@@ -48,6 +58,7 @@ public class ObjectSnap : MonoBehaviour
 
         if (isDragging && Input.GetMouseButtonUp(0))
         {
+            CancelGrid();
             isDragging = false;
             RaycastHit groundHit;
             Ray groundRay = new Ray(selectedObject.transform.position, Vector3.down);                   
@@ -62,32 +73,44 @@ public class ObjectSnap : MonoBehaviour
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity,gridLayerMask))
                     { 
-                        Debug.Log(hit.collider.gameObject.name);    
+                    
                         selectedObject.transform.position = hit.transform.position+Vector3.up*0.02f;
                         selectedObject = null;
                     }   
                     else
                     {
-                        Debug.Log("3");
+                        CancelGrid();
                         selectedObject.transform.position = selectedObjectOriginalPosition;
                         selectedObject = null;
                     }
                 }    
                 else
                 {
-                    Debug.Log("4:"+ groundHit.collider.gameObject.name+" "+groundHit.collider.tag);
-                    
+                  
                     selectedObject.transform.position = selectedObjectOriginalPosition;
                     selectedObject = null;
                 }
             }
             else
             {
-                Debug.Log("5");
+               
                 selectedObject.transform.position = selectedObjectOriginalPosition; 
                 selectedObject = null;
             }
             
         }
+    }
+    void SelectGrid(RaycastHit hit)
+    {
+        if(hit.transform.gameObject.GetComponent<Renderer>() == selectedGrid) return;
+        CancelGrid();
+        selectedGrid = hit.transform.gameObject.GetComponent<Renderer>();
+        selectedGrid.material.color = Color.red;
+    }
+    void CancelGrid()
+    {
+        if(selectedGrid == null) return;
+        selectedGrid.material.color = new Color(0.5766286f,0.7044498f,0.8773585f,1f);
+        selectedGrid = null;
     }
 }
