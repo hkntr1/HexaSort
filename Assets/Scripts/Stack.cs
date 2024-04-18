@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Stack : MonoBehaviour
 {
     public int MaxStackCount,MinStackCount;
@@ -49,7 +49,8 @@ public class Stack : MonoBehaviour
   public void AddStackTileToStack(StackObject newTile)
     {
         newTile.transform.parent = transform;
-        newTile.transform.localPosition = new Vector3(0, stackTilesObjects.Count * 0.03f, 0);
+        newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.03f, 0),0.3f);
+        //newTile.transform.localPosition = ;
         stackTilesObjects.Add(newTile);
     }
    
@@ -82,15 +83,17 @@ public class Stack : MonoBehaviour
         stackObjects.Add(stackTilesObjects[i]);
       }
      }
-    if(stackObjects.Count>=10)
-     {
-       foreach (var stackObject in stackObjects)
-       {
-         ScoreManager.instance.ChangeScore(1);
-         stackTilesObjects.Remove(stackObject);
-         Destroy(stackObject.gameObject);
-       }
-       LevelManager.onCheckNeeded.Invoke();
-     }
+    if (stackObjects.Count >= 10)
+    {
+      foreach (var stackObject in stackObjects)
+      {
+        ScoreManager.instance.ChangeScore(1);
+        stackTilesObjects.Remove(stackObject);
+        stackObject.transform.DOScaleX(0, 0.3f)
+          .OnStart(() => stackObject.transform.DOScaleY(0, 0.3f))
+          .OnComplete(() => Destroy(stackObject.gameObject));
+      }
+      LevelManager.onCheckNeeded.Invoke();
+    }
    }
 }
