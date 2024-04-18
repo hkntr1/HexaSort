@@ -7,25 +7,25 @@ public class Stack : MonoBehaviour
     public int MaxStackCount,MinStackCount;
     public List<StackTile> stackList;   
     public bool isPlaced;
-    [SerializeField] private GameObject stack;
+    [SerializeField] private StackObject stack;
     public List<StackTile> stackTiles;
+    public List<StackObject> stackTilesObjects;
     void Start()
     {
        CreateStack();
     }
     void CreateStack()
     {
-         int stackCount = Random.Range(MinStackCount, MaxStackCount);
+        int stackCount = Random.Range(MinStackCount, MaxStackCount);
         int firstSection=Random.Range(0, stackCount);
         int secondSection=Random.Range(firstSection, stackCount);
         int colorIndex = Random.Range(0, stackList.Count);
         int oldColorIndex = colorIndex;
         for (int i = 0; i < stackCount; i++)
         {
-            GameObject stackObject = Instantiate(stack);
-            stackObject.GetComponent<MeshRenderer>().material.color = stackList[colorIndex].color;
-            stackObject.name = stackList[colorIndex].name;
-            stackTiles.Add(stackList[colorIndex]);
+            StackObject stackObject = Instantiate(stack);
+            stackObject.Init(stackList[colorIndex]);
+            stackTilesObjects.Add(stackObject);
             if(i==firstSection)
             { 
               stackList.RemoveAt(colorIndex);
@@ -46,5 +46,27 @@ public class Stack : MonoBehaviour
             stackObject.transform.localPosition = new Vector3(0, yPos, 0);
         }
     }
-    
+  public void AddStackTileToStack(StackObject newTile)
+    {
+       
+       
+        newTile.transform.parent = transform;
+        newTile.transform.localPosition = new Vector3(0, stackTilesObjects.Count * 0.03f, 0);
+        stackTilesObjects.Add(newTile);
+    }
+   
+   public void TransferToOtherStack(Stack otherStack)
+   {
+     Color color = stackTilesObjects[stackTilesObjects.Count-1].color;
+     for (int i = stackTilesObjects.Count-1; i >= 0; i--)
+     {
+      if(stackTilesObjects[i].color==color)
+      {
+        otherStack.AddStackTileToStack(stackTilesObjects[i]);
+        stackTilesObjects.RemoveAt(i);
+  
+      } 
+      else return;
+     }
+   }
 }

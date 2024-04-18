@@ -97,5 +97,6 @@ public class ObjectSnap : MonoBehaviour
         WaveController.onItemCollected?.Invoke(selectedStack);
         selectedStack.transform.position = selectedGrid.transform.position+Vector3.up*0.02f;
         selectedStack = null;
+        LevelManager.onCheckNeeded.Invoke();
     }
 }

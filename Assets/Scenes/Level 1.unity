@@ -733,6 +733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 797809012}
+  - component: {fileID: 797809013}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -755,6 +756,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &797809013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797809011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3dbb3b6324b8f4fb05fc4136493d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManagers:
+  - {fileID: 892217392}
+  - {fileID: 1801042377}
+  - {fileID: 1868888958}
+  - {fileID: 154141595}
+  - {fileID: 603650054}
+  - {fileID: 1522572589}
+  - {fileID: 1128853047}
+  - {fileID: 351161222}
+  - {fileID: 2098583266}
+  - {fileID: 864371355}
+  - {fileID: 1673959152}
+  - {fileID: 1117085940}
+  - {fileID: 91841787}
+  - {fileID: 491371362}
+  - {fileID: 118803664}
+  - {fileID: 2023225249}
+  - {fileID: 1116423274}
+  - {fileID: 910524506}
+  - {fileID: 536612881}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

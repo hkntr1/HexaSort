@@ -52,4 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ab1082fe63c5c545b64200dbf7b976c, type: 2}
   - {fileID: 11400000, guid: 4667e647a95582642ba73d242b3adfc0, type: 2}
   - {fileID: 11400000, guid: 9ec7d1a5cc4bf4543a6569c9f97a75ac, type: 2}
-  stack: {fileID: 5251535556815029436, guid: 1aec4972c8709a7469b17f66619ee575, type: 3}
+  isPlaced: 0
+  stack: {fileID: 5899660545106152474, guid: 1aec4972c8709a7469b17f66619ee575, type: 3}
+  stackTiles: []
+  stackTilesObjects: []

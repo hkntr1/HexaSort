@@ -22,6 +22,9 @@ public class LevelManager : MonoBehaviour
     }
     public void CheckAll()
     {
-
+      foreach (var gridManager in gridManagers)
+        {
+            gridManager.CheckColorMatch();
+        }
     }
 }
