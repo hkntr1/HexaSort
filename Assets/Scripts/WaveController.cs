@@ -19,10 +19,11 @@ public class WaveController : MonoBehaviour
 		instance = this;
 	}
 	#endregion
-     public static Action onItemCollected;
+     public static Action<Stack> onItemCollected;
     void Start()
     { 
-        onItemCollected += () =>{
+        onItemCollected += (Stack selectedStack) =>{
+            stacks.Remove(selectedStack);
             if(stacks.Count == 0)
             {
                 CreateNewWave();

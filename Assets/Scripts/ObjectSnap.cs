@@ -6,7 +6,7 @@ public class ObjectSnap : MonoBehaviour
     private Vector3 offset;
     private bool isDragging = false;
     private Vector3 selectedObjectOriginalPosition;
-    public Renderer selectedGrid; 
+    public GameObject selectedGrid; 
     public LayerMask stackObjectLayerMask,gridLayerMask;
     
     void Update()
@@ -56,45 +56,43 @@ public class ObjectSnap : MonoBehaviour
 
         if (isDragging && Input.GetMouseButtonUp(0))
         {
-            CancelGrid();
+           
             isDragging = false;
-            RaycastHit groundHit;
-            Ray groundRay = new Ray(selectedObject.transform.position, Vector3.down);                   
-            if (Physics.Raycast(groundRay, out groundHit, Mathf.Infinity))
+            if (selectedGrid!=null && selectedGrid.GetComponent<GridManager>().isEmpty)
             { 
-
-                if(groundHit.collider.CompareTag("Tile"))
-                {  
-                        WaveController.instance.stacks.Remove(selectedObject.GetComponent<Stack>());
-                        WaveController.onItemCollected?.Invoke();
-                        selectedObject.transform.position = groundHit.transform.position+Vector3.up*0.02f;
-                        selectedObject = null;
-                }    
-                else
-                {     
-                    selectedObject.transform.position = selectedObjectOriginalPosition;
-                    selectedObject = null;
-                }
-            }
+                TruePlace();
+            }    
             else
             {     
-                selectedObject.transform.position = selectedObjectOriginalPosition; 
-                selectedObject = null;
+                WrongPlace();
             }
-            
+            CancelGrid();
         }
     }
     void SelectGrid(RaycastHit hit)
     {
-        if(hit.transform.gameObject.GetComponent<Renderer>() == selectedGrid) return;
+        if(hit.transform.gameObject == selectedGrid) return;
         CancelGrid();
-        selectedGrid = hit.transform.gameObject.GetComponent<Renderer>();
-        selectedGrid.material.color = Color.red;
+        selectedGrid = hit.transform.gameObject;
+        selectedGrid.GetComponent<Renderer>().material.color = Color.red;
     }
     void CancelGrid()
     {
         if(selectedGrid == null) return;
-        selectedGrid.material.color = new Color(0.5766286f,0.7044498f,0.8773585f,1f);
+        selectedGrid.GetComponent<Renderer>().material.color = new Color(0.5766286f,0.7044498f,0.8773585f,1f);
         selectedGrid = null;
+    }
+    void WrongPlace()
+    {
+        selectedObject.transform.position = selectedObjectOriginalPosition; 
+        selectedObject = null;
+    }
+    void TruePlace()
+    {
+        selectedGrid.GetComponent<GridManager>().isEmpty = false;
+        selectedGrid.GetComponent<GridManager>().CurrentStack = selectedObject.GetComponent<Stack>();
+        WaveController.onItemCollected?.Invoke(selectedObject.GetComponent<Stack>());
+        selectedObject.transform.position = selectedGrid.transform.position+Vector3.up*0.02f;
+        selectedObject = null;
     }
 }
