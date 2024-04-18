@@ -1,16 +1,14 @@
 using UnityEngine;
-
+using System;
 public class ObjectSnap : MonoBehaviour
 {
     private GameObject selectedObject;
     private Vector3 offset;
     private bool isDragging = false;
     private Vector3 selectedObjectOriginalPosition;
-    public Renderer selectedGrid; // Stack objesi
-
-    // Yalnızca belirli layer'daki objelerle çalışmak için
+    public Renderer selectedGrid; 
     public LayerMask stackObjectLayerMask,gridLayerMask;
-
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -64,36 +62,22 @@ public class ObjectSnap : MonoBehaviour
             Ray groundRay = new Ray(selectedObject.transform.position, Vector3.down);                   
             if (Physics.Raycast(groundRay, out groundHit, Mathf.Infinity))
             { 
-                Debug.Log("0");
+
                 if(groundHit.collider.CompareTag("Tile"))
                 {  
-                    Debug.Log("1");
-                    RaycastHit hit;
-                   
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity,gridLayerMask))
-                    { 
-                    
-                        selectedObject.transform.position = hit.transform.position+Vector3.up*0.02f;
+                        WaveController.instance.stacks.Remove(selectedObject.GetComponent<Stack>());
+                        WaveController.onItemCollected?.Invoke();
+                        selectedObject.transform.position = groundHit.transform.position+Vector3.up*0.02f;
                         selectedObject = null;
-                    }   
-                    else
-                    {
-                        CancelGrid();
-                        selectedObject.transform.position = selectedObjectOriginalPosition;
-                        selectedObject = null;
-                    }
                 }    
                 else
-                {
-                  
+                {     
                     selectedObject.transform.position = selectedObjectOriginalPosition;
                     selectedObject = null;
                 }
             }
             else
-            {
-               
+            {     
                 selectedObject.transform.position = selectedObjectOriginalPosition; 
                 selectedObject = null;
             }
