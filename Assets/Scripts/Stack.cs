@@ -75,23 +75,23 @@ public class Stack : MonoBehaviour
       {
         otherStack.AddStackTileToStack(stackTilesObjects[i]);
         stackTilesObjects.RemoveAt(i);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
       } 
       else
       {
        otherStack.CheckBoom();
-     
+       CheckBoom();
        break;
       } 
       isMatching=false;
       otherStack.isMatching=false;
-    
      }
+     LevelManager.instance.CheckBoomAll();
      LevelManager.onCheckNeeded.Invoke();
      CheckEmpty();
    }
    
-   public void CheckBoom()
+    public void CheckBoom()
    {
     if(stackTilesObjects.Count==0)
     {
@@ -105,33 +105,26 @@ public class Stack : MonoBehaviour
       if(stackTilesObjects[i].color==color)
       {
         stackObjects.Add(stackTilesObjects[i]);
+      
       }
      }
+    Debug.Log("StackObjects: "+stackObjects.Count);
     if (stackObjects.Count >= 10)
     {
       StartCoroutine(PerformActionsCoroutine(stackObjects));
-      LevelManager.onCheckNeeded.Invoke();
     }
    }
     IEnumerator PerformActionsCoroutine(List<StackObject> stackObjects)
     {
         foreach (var stackObject in stackObjects)
         {
-            // Puanı arttır
             ScoreManager.instance.ChangeScore(1);
-
-            // Obje listesinden kaldır
             stackTilesObjects.Remove(stackObject);
-
-            // Obje küçültme animasyonu ve yok etme
             stackObject.transform.DOScale(Vector3.zero, 0.3f)
-                .OnComplete(() => Destroy(stackObject.gameObject));
-
-            // Bir sonraki obje için belirtilen gecikmeyi bekle
+            .OnComplete(() => Destroy(stackObject.gameObject));
             yield return new WaitForSeconds(0.1f);
         }
         CheckEmpty();
-        // Tüm objelerin işlemleri tamamlandığında LevelManager.onCheckNeeded.Invoke() çağır
         LevelManager.onCheckNeeded.Invoke();
     }
     public void CheckEmpty()

@@ -45,9 +45,12 @@ public class GridManager : MonoBehaviour
          {
               if (neighbor.CurrentStack != null&&CurrentStack!=null)
               {
+                if (CurrentStack.stackTilesObjects.Count!=0&&neighbor.CurrentStack.stackTilesObjects.Count!=0)
+                {
                 if (neighbor.CurrentStack.stackTilesObjects[neighbor.CurrentStack.stackTilesObjects.Count-1].color == CurrentStack.stackTilesObjects[CurrentStack.stackTilesObjects.Count-1].color)
                 { 
                    neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
+                }
                 }
               }
          }
