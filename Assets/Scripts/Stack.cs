@@ -62,7 +62,7 @@ public class Stack : MonoBehaviour
         }
         else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
         {
-            newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.70f,0,0,0.70f), 0.3f);
+            newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.61f,0.35f,0.35f,0.61f), 0.3f);
         }
         else if(moveDirection.x>0.16f&&moveDirection.x<0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
           newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,-0.70f,-0.70f,0), 0.3f);
