@@ -27,7 +27,7 @@ public class WaveController : MonoBehaviour
             if(stacks.Count == 0)
             {
                 CreateNewWave();
-                Debug.Log("Wave Completed");
+               
             }
         };
         mainCamera = Camera.main;

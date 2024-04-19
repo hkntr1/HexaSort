@@ -93,6 +93,7 @@ public class ObjectSnap : MonoBehaviour
     {
         selectedGrid.GetComponent<GridManager>().isEmpty = false;
         selectedGrid.GetComponent<GridManager>().CurrentStack = selectedStack.GetComponent<Stack>();
+        selectedStack.GetComponent<Stack>().currentGrid = selectedGrid.GetComponent<GridManager>(); 
         selectedStack.isPlaced = true;
         WaveController.onItemCollected?.Invoke(selectedStack);
         selectedStack.transform.position = selectedGrid.transform.position+Vector3.up*0.03f;
