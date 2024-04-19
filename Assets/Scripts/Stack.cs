@@ -52,6 +52,7 @@ public class Stack : MonoBehaviour
     {
         newTile.transform.parent = transform;
         newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.03f, 0),0.3f);
+       // newTile.transform.DOLocalRotate(new Vector3(270, 0, 0), 0.2f, RotateMode.FastBeyond360);
         //newTile.transform.localPosition = ;
         stackTilesObjects.Add(newTile);
     }
