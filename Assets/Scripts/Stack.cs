@@ -50,13 +50,29 @@ public class Stack : MonoBehaviour
     }
   public void AddStackTileToStack(StackObject newTile)
     {
+        
+        Vector3 previousPosition = newTile.transform.position;
+        Vector3 targetPosition = transform.position;
+        Vector3 moveDirection = targetPosition - previousPosition;   
+        Debug.Log("MoveDirection: "+moveDirection);
         newTile.transform.parent = transform;
         newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.03f, 0),0.3f);
-       // newTile.transform.DOLocalRotate(new Vector3(270, 0, 0), 0.2f, RotateMode.FastBeyond360);
-        //newTile.transform.localPosition = ;
+        if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f){
+          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0.61f,-0.35f,-0.35f,-0.61f), 0.3f);
+        }
+        else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
+        {
+            newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.70f,0,0,0.70f), 0.3f);
+        }
+        else if(moveDirection.x>0.16f&&moveDirection.x<0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
+          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,-0.70f,-0.70f,0), 0.3f);
+        } 
+        else if(moveDirection.x<-0.16f&&moveDirection.x>-0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
+          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,0.70f,0.70f,0), 0.3f);
+        } 
         stackTilesObjects.Add(newTile);
     }
-   
+ 
    public void TransferToOtherStack(Stack otherStack)
    {
     if(otherStack.isMatching||isMatching)
@@ -71,7 +87,7 @@ public class Stack : MonoBehaviour
     isMatching=true; 
     Color color = stackTilesObjects[stackTilesObjects.Count-1].color;
     for (int i = stackTilesObjects.Count-1; i >= 0; i--)
-     { Debug.Log("Transfer: "+i);
+     { 
       if(stackTilesObjects[i].color==color)
       {
         otherStack.AddStackTileToStack(stackTilesObjects[i]);
