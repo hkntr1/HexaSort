@@ -82,7 +82,7 @@ public class ObjectSnap : MonoBehaviour
     void CancelGrid()
     {
         if(selectedGrid == null) return;
-        selectedGrid.GetComponent<Renderer>().material.color = new Color(0.5766286f,0.7044498f,0.8773585f,1f);
+        selectedGrid.GetComponent<Renderer>().material.color = new Color(0.4564495f,0.4593568f,0.4622641f,1f);
         selectedGrid = null;
     }
     void WrongPlace()
@@ -91,7 +91,8 @@ public class ObjectSnap : MonoBehaviour
         selectedStack = null;
     }
     void TruePlace()
-    {
+    { 
+        
         selectedGrid.GetComponent<GridManager>().isEmpty = false;
         selectedGrid.GetComponent<GridManager>().CurrentStack = selectedStack.GetComponent<Stack>();
         selectedStack.GetComponent<Stack>().currentGrid = selectedGrid.GetComponent<GridManager>(); 
@@ -103,5 +104,6 @@ public class ObjectSnap : MonoBehaviour
               LevelManager.onCheckNeeded.Invoke();
         });
         selectedStack = null;
+        LevelManager.instance.CheckFail();
     }
 }

@@ -19,6 +19,7 @@ public class ScoreManager : MonoBehaviour
     }
     private void Start() {
         uiController.Init(maxProgress);
+        ResetScore();
     }
     public void ChangeScore(int value)
     {
@@ -28,5 +29,6 @@ public class ScoreManager : MonoBehaviour
     public void ResetScore() {
         score = 0;
         uiController.ResetScore();
+        uiController.Init(GameManager.instance.currentLevelData.maxProgress);
     }
 }

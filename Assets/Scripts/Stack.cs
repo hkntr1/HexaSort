@@ -144,7 +144,6 @@ public class Stack : MonoBehaviour
       
       }
      }
-    Debug.Log("StackObjects: "+stackObjects.Count);
     if (stackObjects.Count >= 10)
     {
       StartCoroutine(PerformActionsCoroutine(stackObjects));
@@ -157,9 +156,10 @@ public class Stack : MonoBehaviour
         {
             ScoreManager.instance.ChangeScore(1);
             stackTilesObjects.Remove(stackObject);
+            
             stackObject.transform.DOScale(Vector3.zero, 0.3f)
             .OnComplete(() =>SimpleGameObjectPool.instance.ReturnObject(stackObject.gameObject));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
         }
         CheckEmpty();
         LevelManager.onCheckNeeded.Invoke();

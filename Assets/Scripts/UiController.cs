@@ -8,7 +8,8 @@ public class UiController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Slider progressSlider;
-    [SerializeField] Image winPanel;
+    [SerializeField] Image winPanel,failPanel;
+    
 public void Init(int maxProgress) {
     scoreText.text = ScoreManager.instance.score+"/"+maxProgress;
     progressSlider.value = 0;
@@ -32,17 +33,23 @@ public void ResetScore() {
 public bool CheckWin() {
     if(progressSlider.value >= progressSlider.maxValue) {
         winPanel.gameObject.SetActive(true);
-        winPanel.DOFade(0.8f, 0.5f);
+        winPanel.DOFade(1f, 0.5f).OnComplete(() =>
+         {
+            LevelManager.instance.ClearStacks();
+            GameManager.instance.currentLevelData.gameObject.SetActive(false);
+        });
         return true;
     }
     else {
         return false;
     }
 }
+public void FailScreen() {
+    failPanel.gameObject.SetActive(true);
+    failPanel.DOFade(1f, 0.5f);
+}
 public void NextLevel() {
     GameManager.onLevelChange?.Invoke();
-    winPanel.DOFade(0, 0.5f).OnComplete(() => {
-        winPanel.gameObject.SetActive(false);
-    });
+    winPanel.gameObject.SetActive(false);
 }
 }

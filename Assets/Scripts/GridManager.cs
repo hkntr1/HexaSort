@@ -26,9 +26,9 @@ public class GridManager : MonoBehaviour
 
                 if (hitTransform.CompareTag("Tile"))
                 { 
-                  
+                    hitTransform.name = "Tile";
                     neighborHexagons.Add(hitTransform.GetComponent<GridManager>());
-                    
+                     Debug.Log("Added Finding Neighbours");
                 }
             }
    }
@@ -36,7 +36,6 @@ public class GridManager : MonoBehaviour
 }
     public void CheckColorMatch()
    {
-        
          if (neighborHexagons.Count == 0)
          {
               return;
@@ -51,9 +50,9 @@ public class GridManager : MonoBehaviour
                 { 
                    neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
                 }
-                }
               }
          }
        
    }    
+}
 }
