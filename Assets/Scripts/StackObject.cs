@@ -14,5 +14,6 @@ public class StackObject : MonoBehaviour
         colorIndex = stackTile.colorIndex;
         GetComponent<MeshRenderer>().material.color = color;
         gameObject.name = name; 
+        gameObject.SetActive(true);
     }
 }

@@ -25,7 +25,8 @@ public class Stack : MonoBehaviour
         int oldColorIndex = colorIndex;
         for (int i = 0; i < stackCount; i++)
         {
-            StackObject stackObject = Instantiate(stack);
+            //StackObject stackObject = Instantiate(stack);
+            StackObject stackObject = SimpleGameObjectPool.instance.GetObject(stack.gameObject).GetComponent<StackObject>();
             stackObject.Init(stackList[colorIndex]);
             stackTilesObjects.Add(stackObject);
             if(i==firstSection)
@@ -147,7 +148,7 @@ public class Stack : MonoBehaviour
             ScoreManager.instance.ChangeScore(1);
             stackTilesObjects.Remove(stackObject);
             stackObject.transform.DOScale(Vector3.zero, 0.3f)
-            .OnComplete(() => Destroy(stackObject.gameObject));
+            .OnComplete(() =>SimpleGameObjectPool.instance.ReturnObject(stackObject.gameObject));
             yield return new WaitForSeconds(0.1f);
         }
         CheckEmpty();
