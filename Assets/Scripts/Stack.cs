@@ -55,7 +55,6 @@ public class Stack : MonoBehaviour
         Vector3 previousPosition = newTile.transform.position;
         Vector3 targetPosition = transform.position;
         Vector3 moveDirection = targetPosition - previousPosition;   
-        Debug.Log("MoveDirection: "+moveDirection);
         newTile.transform.parent = transform;
         newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.015f, 0),0.3f);
         if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f){
