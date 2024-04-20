@@ -6,10 +6,11 @@ public class GridManager : MonoBehaviour
 {
    public bool isEmpty;
    public Stack CurrentStack;
-    public List<GridManager> neighborHexagons = new List<GridManager>();
+    public List<GridManager> neighborHexagons;
 
     public void CheckNeighbours()
    {
+      Debug.Log("Finding Neighbours");
       float[] angles = { 30f, 90f, 150f, 210f, 270f, 330f };
 
         foreach (float angle in angles)
@@ -20,12 +21,14 @@ public class GridManager : MonoBehaviour
 
             if (Physics.Raycast(transform.position, direction, out hit, 1f))
             {
-                
+               
                 Transform hitTransform = hit.transform;
 
                 if (hitTransform.CompareTag("Tile"))
-                {
+                { 
+                  
                     neighborHexagons.Add(hitTransform.GetComponent<GridManager>());
+                    
                 }
             }
    }

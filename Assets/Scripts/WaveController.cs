@@ -38,7 +38,17 @@ public class WaveController : MonoBehaviour
         CalculateHitPoint();
         CreateSpawnPoints();
     }
-
+    public void ResetWave()
+    {
+        foreach (var stack in stacks)
+        {
+            Destroy(stack.gameObject);
+        }
+        stacks.Clear();
+        spawnPoints.Clear();
+        CalculateHitPoint();
+        CreateSpawnPoints();
+    }
     void CalculateHitPoint()
     {
         Ray leftRay = mainCamera.ScreenPointToRay(new Vector3(0, Screen.height / 5, 0));

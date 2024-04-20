@@ -16,13 +16,28 @@ public class LevelManager : MonoBehaviour
 	#endregion
     
     private void Start() {
-        FindNeighbours();
+      
+        Init();
         onCheckNeeded += CheckAll;   
     }
+    
+    public void Init()
+    { 
+        gridManagers.Clear();
+        foreach(GridManager gridManager in GameManager.instance.levels[GameManager.instance.currentLevel].gridManagers)
+        {
+            gridManagers.Add(gridManager);
+        }
+       
+      //  gridManagers=GameManager.instance.levels[GameManager.instance.currentLevel].gridManagers;
+        FindNeighbours();
+    }
+    
     public void FindNeighbours()
     {
         foreach (var gridManager in gridManagers)
         {
+       
             gridManager.CheckNeighbours();
         }
     }

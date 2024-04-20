@@ -25,6 +25,10 @@ public void UpdateProgress(int score) {
     });
    
 }
+public void ResetScore() {
+    scoreText.text = "0"+"/"+GameManager.instance.levels[GameManager.instance.currentLevel].maxProgress ;
+    progressSlider.value = 0;
+}
 public bool CheckWin() {
     if(progressSlider.value >= progressSlider.maxValue) {
         winPanel.gameObject.SetActive(true);
@@ -34,5 +38,11 @@ public bool CheckWin() {
     else {
         return false;
     }
+}
+public void NextLevel() {
+    GameManager.onLevelChange?.Invoke();
+    winPanel.DOFade(0, 0.5f).OnComplete(() => {
+        winPanel.gameObject.SetActive(false);
+    });
 }
 }

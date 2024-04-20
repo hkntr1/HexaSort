@@ -56,28 +56,38 @@ public class Stack : MonoBehaviour
         Vector3 targetPosition = transform.position;
         Vector3 moveDirection = targetPosition - previousPosition;   
         newTile.transform.parent = transform;
-        newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.015f, 0),0.3f);
-        if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f){
-          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0.61f,-0.35f,-0.35f,-0.61f), 0.3f);
-        }
-        else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
-        {
-            newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.61f,0.35f,0.35f,0.61f), 0.3f);
-        }
-        else if(moveDirection.x>0.16f&&moveDirection.x<0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
-          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,-0.70f,-0.70f,0), 0.3f);
-        } 
-        else if(moveDirection.x<-0.16f&&moveDirection.x>-0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
-          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,0.70f,0.70f,0), 0.3f);
-        } 
-        else if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
-        {
-          newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.61f ,-0.35f,-0.35f,0.61f), 0.3f);
-        }
-         else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f)
-        {
-          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0.61f,0.35f,0.35f,-0.61f), 0.3f);
-        }
+        float localyPos= stackTilesObjects.Count * 0.015f;
+        newTile.transform.DOLocalMove(new Vector3(0, localyPos+0.15f, 0),0.4f).OnComplete(() =>
+        newTile.transform.DOLocalMove(new Vector3(0, localyPos, 0),0.2f));
+
+          if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f){
+            newTile.transform.DORotateQuaternion(new Quaternion(0.61f,-0.35f,-0.35f,-0.61f), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+
+          }
+          else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
+          {
+              newTile.transform.DORotateQuaternion(new Quaternion(-0.61f,0.35f,0.35f,0.61f), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+          }
+          else if(moveDirection.x>0.16f&&moveDirection.x<0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
+            newTile.transform.DORotateQuaternion(new Quaternion(0,-0.70f,-0.70f,0), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+          } 
+          else if(moveDirection.x<-0.16f&&moveDirection.x>-0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
+            newTile.transform.DORotateQuaternion(new Quaternion(0,0.70f,0.70f,0), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+          } 
+          else if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
+          {
+            newTile.transform.DORotateQuaternion(new Quaternion(-0.61f ,-0.35f,-0.35f,0.61f), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+          }
+          else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f)
+          {
+            newTile.transform.DORotateQuaternion(new Quaternion(0.61f,0.35f,0.35f,-0.61f), 0.4f).OnComplete(() =>
+            newTile.transform.rotation =Quaternion.Euler(new Vector3(90,0,0)));
+          }
 
         stackTilesObjects.Add(newTile);
     }
@@ -142,13 +152,14 @@ public class Stack : MonoBehaviour
    }
     IEnumerator PerformActionsCoroutine(List<StackObject> stackObjects)
     {
+      yield return new WaitForSeconds(0.3f);
         foreach (var stackObject in stackObjects)
         {
             ScoreManager.instance.ChangeScore(1);
             stackTilesObjects.Remove(stackObject);
             stackObject.transform.DOScale(Vector3.zero, 0.3f)
             .OnComplete(() =>SimpleGameObjectPool.instance.ReturnObject(stackObject.gameObject));
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
         CheckEmpty();
         LevelManager.onCheckNeeded.Invoke();

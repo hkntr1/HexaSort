@@ -23,5 +23,10 @@ public class ScoreManager : MonoBehaviour
     public void ChangeScore(int value)
     {
         score += value;
-        uiController.UpdateProgress(score);}
+        uiController.UpdateProgress(score);
+    }
+    public void ResetScore() {
+        score = 0;
+        uiController.ResetScore();
+    }
 }
