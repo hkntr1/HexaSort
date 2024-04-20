@@ -50,6 +50,10 @@ public class GridManager : MonoBehaviour
                 { 
                    neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
                 }
+                else
+                {
+                   LevelManager.instance.CheckFail();
+                }
               }
          }
        

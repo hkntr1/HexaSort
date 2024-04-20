@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public List<GridManager> gridManagers;
     UiController uiController;
+    bool isFail;
     public static Action onCheckNeeded;
     #region Singleton
 	public static LevelManager instance;
@@ -69,17 +70,19 @@ public class LevelManager : MonoBehaviour
     }
     public void CheckFail()
     {
-       
-        foreach (var gridManager in gridManagers)
+        if(isFail) return;  
+        int freeCount = 0;
+        for (int i = 0; i < gridManagers.Count; i++)
         {
-            if(gridManager.CurrentStack!=null)
+            if(gridManagers[i].CurrentStack!=null)
             {
-                Debug.Log("Still Empty");
-                return;
-            }  
-            Debug.Log("Fail");
-            uiController.FailScreen();
+                freeCount++;
+            }
+            if(freeCount==gridManagers.Count)
+            {
+                isFail = true;
+                uiController.FailScreen();
+            }
         }
-      
     } 
 }
