@@ -43,7 +43,7 @@ public class Stack : MonoBehaviour
             {
               stackList.RemoveAt(colorIndex);
             }
-            float yPos=i*0.03f;
+            float yPos=i*0.015f;
             stackObject.transform.parent = transform;
             stackObject.transform.localPosition = new Vector3(0, yPos, 0);
         }
@@ -56,7 +56,7 @@ public class Stack : MonoBehaviour
         Vector3 moveDirection = targetPosition - previousPosition;   
         Debug.Log("MoveDirection: "+moveDirection);
         newTile.transform.parent = transform;
-        newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.03f, 0),0.3f);
+        newTile.transform.DOLocalMove(new Vector3(0, stackTilesObjects.Count * 0.015f, 0),0.3f);
         if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f){
           newTile.transform.DOLocalRotateQuaternion(new Quaternion(0.61f,-0.35f,-0.35f,-0.61f), 0.3f);
         }
@@ -70,6 +70,15 @@ public class Stack : MonoBehaviour
         else if(moveDirection.x<-0.16f&&moveDirection.x>-0.18f&&moveDirection.z>-0.01f&&moveDirection.z<0.1f){
           newTile.transform.DOLocalRotateQuaternion(new Quaternion(0,0.70f,0.70f,0), 0.3f);
         } 
+        else if(moveDirection.x>0.08f&&moveDirection.x<0.1f&&moveDirection.z<-0.14f&&moveDirection.z>-0.16f)
+        {
+          newTile.transform.DOLocalRotateQuaternion(new Quaternion(-0.61f ,-0.35f,-0.35f,0.61f), 0.3f);
+        }
+         else if(moveDirection.x<-0.08f&&moveDirection.x>-0.1f&&moveDirection.z>0.14f&&moveDirection.z<0.16f)
+        {
+          newTile.transform.DOLocalRotateQuaternion(new Quaternion(0.61f,0.35f,0.35f,-0.61f), 0.3f);
+        }
+
         stackTilesObjects.Add(newTile);
     }
  

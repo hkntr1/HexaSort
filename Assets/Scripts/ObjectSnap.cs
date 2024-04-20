@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using DG.Tweening;
 public class ObjectSnap : MonoBehaviour
 {
     private Stack selectedStack;
@@ -24,7 +25,7 @@ public class ObjectSnap : MonoBehaviour
                 offset = selectedStack.transform.position - hit.point;
                 isDragging = true;
                 Vector3 newPosition = hit.transform.position;
-                newPosition.y = selectedStack.transform.position.y+0.01f; // Y eksenini sabit tut
+                newPosition.y = selectedStack.transform.position.y+0.2f; // Y eksenini sabit tut
                 selectedStack.transform.position = newPosition;
             }
         }
@@ -76,7 +77,7 @@ public class ObjectSnap : MonoBehaviour
         if(hit.transform.gameObject == selectedGrid) return;
         CancelGrid();
         selectedGrid = hit.transform.gameObject;
-        selectedGrid.GetComponent<Renderer>().material.color = Color.red;
+        selectedGrid.GetComponent<Renderer>().material.color = new Color(0.76f,0.76f,0.76f,1f);
     }
     void CancelGrid()
     {
@@ -86,7 +87,7 @@ public class ObjectSnap : MonoBehaviour
     }
     void WrongPlace()
     {
-        selectedStack.transform.position = selectedObjectOriginalPosition; 
+        selectedStack.transform.DOMove(selectedObjectOriginalPosition,0.2f); 
         selectedStack = null;
     }
     void TruePlace()
@@ -96,8 +97,11 @@ public class ObjectSnap : MonoBehaviour
         selectedStack.GetComponent<Stack>().currentGrid = selectedGrid.GetComponent<GridManager>(); 
         selectedStack.isPlaced = true;
         WaveController.onItemCollected?.Invoke(selectedStack);
-        selectedStack.transform.position = selectedGrid.transform.position+Vector3.up*0.03f;
+        selectedStack.transform.DOMove(selectedGrid.transform.position+Vector3.up*0.03f,0.2f).OnComplete(() => 
+        {
+              
+              LevelManager.onCheckNeeded.Invoke();
+        });
         selectedStack = null;
-        LevelManager.onCheckNeeded.Invoke();
     }
 }
