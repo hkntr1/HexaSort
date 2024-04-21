@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 public class Stack : MonoBehaviour
-{
+{   
     public bool isMatching;
     public int MaxStackCount,MinStackCount;
     public List<StackTile> stackList;   
@@ -152,14 +152,25 @@ public class Stack : MonoBehaviour
     IEnumerator PerformActionsCoroutine(List<StackObject> stackObjects)
     {
       yield return new WaitForSeconds(0.2f);
+        int count=0;
+        bool isStar = false;
         foreach (var stackObject in stackObjects)
         {
-            ScoreManager.instance.ChangeScore(1);
-            stackTilesObjects.Remove(stackObject);
-            
-            stackObject.transform.DOScale(Vector3.zero, 0.15f)
-            .OnComplete(() =>SimpleGameObjectPool.instance.ReturnObject(stackObject.gameObject));
-            yield return new WaitForSeconds(0.2f);
+          count++;
+          ScoreManager.instance.ChangeScore(1);
+
+          stackTilesObjects.Remove(stackObject);
+          stackObject.transform.DOScale(Vector3.zero, 0.3f)
+            .OnComplete(() =>
+            {
+              if (count == stackObjects.Count&&!isStar)
+              { 
+                isStar = true;
+                UiController.instance.ProgressStar(stackObject.transform.position);
+              }
+            SimpleGameObjectPool.instance.ReturnObject(stackObject.gameObject);
+            });
+          yield return new WaitForSeconds(0.1f);
         }
         CheckEmpty();
         LevelManager.onCheckNeeded.Invoke();
@@ -168,6 +179,7 @@ public class Stack : MonoBehaviour
     {
       if(stackTilesObjects.Count==0)
       {
+        
         currentGrid.isEmpty=true;
         currentGrid.CurrentStack=null;
         Destroy(gameObject);

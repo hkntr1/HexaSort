@@ -7,6 +7,7 @@ public class StackObject : MonoBehaviour
     public Color color;
     public string name;
     public int colorIndex;
+    ParticleSystem particle;
     public void Init(StackTile stackTile)
     {
         color = stackTile.color;

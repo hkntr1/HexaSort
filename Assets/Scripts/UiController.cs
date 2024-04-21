@@ -9,13 +9,19 @@ public class UiController : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Slider progressSlider;
     [SerializeField] Image winPanel,failPanel;
+    public GameObject progressStar;
+    public static UiController instance;
+
+    private void Awake() {
+        instance = this;
+    }
     
-public void Init(int maxProgress) {
+    public void Init(int maxProgress) {
     scoreText.text = ScoreManager.instance.score+"/"+maxProgress;
     progressSlider.value = 0;
     progressSlider.maxValue = maxProgress;
-}
-public void UpdateProgress(int score) {
+    }
+    public void UpdateProgress(int score) {
 
     progressSlider.DOValue(score, 0.5f).OnUpdate(() => {
       if(CheckWin())
@@ -52,4 +58,14 @@ public void NextLevel() {
     GameManager.onLevelChange?.Invoke();
     winPanel.gameObject.SetActive(false);
 }
+public void ProgressStar(Vector3 position)
+{
+  Vector3 pos = Camera.main.WorldToScreenPoint(position);
+ GameObject star = Instantiate(progressStar,pos,Quaternion.identity);
+ star.transform.SetParent(progressSlider.transform.parent);
+ star.transform.DOMove(progressSlider.targetGraphic.transform.position,0.7f).SetEase(Ease.InBack).OnComplete(() =>
+ {
+     Destroy(star);
+ });    
 }
+}   
