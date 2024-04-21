@@ -9,26 +9,26 @@ public class LevelManager : MonoBehaviour
     UiController uiController;
     bool isFail;
     public static Action onCheckNeeded;
+
     #region Singleton
-	public static LevelManager instance;
-    public GameManager gameManager; 
-	void Awake()
-	{
-		instance = this;
-        
-	}
-	#endregion
+    public static LevelManager instance;
+    public GameManager gameManager;
+
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
     
-    private void Start() {
-      
+    private void Start()
+    {
         uiController = FindObjectOfType<UiController>();
         Init();
-        onCheckNeeded += CheckAll;   
+        onCheckNeeded += CheckAll;
     }
     
     public void Init()
     {   
-       
         gridManagers.Clear();
         foreach(GridManager gridManager in gameManager.currentLevelData.gridManagers)
         {
@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour
             gridManager.CheckNeighbours();
         }
     }
+    
     public void CheckAll()
     {
         foreach (var gridManager in gridManagers)
@@ -51,16 +52,18 @@ public class LevelManager : MonoBehaviour
             gridManager.CheckColorMatch();
         }
     }  
+    
     public void ClearStacks()
     {
         foreach (var gridManager in gridManagers)
         {
-            if(gridManager.CurrentStack!=null)
+            if(gridManager.CurrentStack != null)
             {
                 Destroy(gridManager.CurrentStack.gameObject);
             }
         }
     }
+    
     public void CheckBoomAll()
     {
         foreach (var gridManager in gridManagers)
@@ -68,17 +71,18 @@ public class LevelManager : MonoBehaviour
             gridManager.CurrentStack?.CheckBoom();
         }
     }
+    
     public void CheckFail()
     {
         if(isFail) return;  
         int freeCount = 0;
         for (int i = 0; i < gridManagers.Count; i++)
         {
-            if(gridManagers[i].CurrentStack!=null)
+            if(gridManagers[i].CurrentStack != null)
             {
                 freeCount++;
             }
-            if(freeCount==gridManagers.Count)
+            if(freeCount == gridManagers.Count)
             {
                 isFail = true;
                 uiController.FailScreen();

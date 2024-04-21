@@ -18,14 +18,4 @@ public class MenuController : MonoBehaviour
                   bg.color = newColor;
             }).SetLoops(-1, LoopType.Yoyo);
     }
-
-    // Update is called once per frame
-    void StartButton()
-    {
-        
-    }
-    void ContinueButton()
-    {
-        Debug.Log("Continue Button Clicked");
-    }
 }

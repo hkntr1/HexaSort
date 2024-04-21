@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-   public bool isEmpty;
-   public Stack CurrentStack;
+    public bool isEmpty;
+    public Stack CurrentStack;
     public List<GridManager> neighborHexagons;
 
     public void CheckNeighbours()
-   {
-      Debug.Log("Finding Neighbours");
-      float[] angles = { 30f, 90f, 150f, 210f, 270f, 330f };
+    {
+        Debug.Log("Finding Neighbours");
+        float[] angles = { 30f, 90f, 150f, 210f, 270f, 330f };
 
         foreach (float angle in angles)
         {
@@ -19,44 +19,43 @@ public class GridManager : MonoBehaviour
 
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, direction, out hit,0.1f))
+            if (Physics.Raycast(transform.position, direction, out hit, 0.1f))
             {
-               
                 Transform hitTransform = hit.transform;
 
                 if (hitTransform.CompareTag("Tile"))
                 { 
                     hitTransform.name = "Tile";
                     neighborHexagons.Add(hitTransform.GetComponent<GridManager>());
-                     Debug.Log("Added Finding Neighbours");
+                    Debug.Log("Added Finding Neighbours");
                 }
             }
-   }
+        }
+    }
    
-}
     public void CheckColorMatch()
-   {
-         if (neighborHexagons.Count == 0)
-         {
-              return;
-         }
-         foreach (GridManager neighbor in neighborHexagons)
-         {
-              if (neighbor.CurrentStack != null&&CurrentStack!=null)
-              {
-                if (CurrentStack.stackTilesObjects.Count!=0&&neighbor.CurrentStack.stackTilesObjects.Count!=0)
+    {
+        if (neighborHexagons.Count == 0)
+        {
+            return;
+        }
+        
+        foreach (GridManager neighbor in neighborHexagons)
+        {
+            if (neighbor.CurrentStack != null && CurrentStack != null)
+            {
+                if (CurrentStack.stackTilesObjects.Count != 0 && neighbor.CurrentStack.stackTilesObjects.Count != 0)
                 {
-                if (neighbor.CurrentStack.stackTilesObjects[neighbor.CurrentStack.stackTilesObjects.Count-1].color == CurrentStack.stackTilesObjects[CurrentStack.stackTilesObjects.Count-1].color)
-                { 
-                   neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
+                    if (neighbor.CurrentStack.stackTilesObjects[neighbor.CurrentStack.stackTilesObjects.Count - 1].color == CurrentStack.stackTilesObjects[CurrentStack.stackTilesObjects.Count - 1].color)
+                    { 
+                        neighbor.CurrentStack.TransferToOtherStack(CurrentStack);
+                    }
+                    else
+                    {
+                        LevelManager.instance.CheckFail();
+                    }
                 }
-                else
-                {
-                   LevelManager.instance.CheckFail();
-                }
-              }
-         }
-       
-   }    
-}
+            }
+        }
+    }    
 }
