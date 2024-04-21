@@ -178,8 +178,7 @@ public class Stack : MonoBehaviour
     public void CheckEmpty()
     {
       if(stackTilesObjects.Count==0)
-      {
-        
+      {  
         currentGrid.isEmpty=true;
         currentGrid.CurrentStack=null;
         Destroy(gameObject);
