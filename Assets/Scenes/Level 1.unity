@@ -1520,7 +1520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1153657240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1558,7 +1558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1299563842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2804,6 +2804,7 @@ MonoBehaviour:
   scoreText: {fileID: 124019326}
   progressSlider: {fileID: 264822658}
   winPanel: {fileID: 1548411965}
+  failPanel: {fileID: 1299563843}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
