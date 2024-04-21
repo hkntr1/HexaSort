@@ -13,13 +13,25 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         instance = this;
         Application.targetFrameRate = 60;
-        onLevelChange += NextLevel;
+        onLevelChange += () =>
+        {
+            NextLevel();
+        };
     }
     private void Start() {
-        currentLevelData =  Instantiate(GameManager.instance.levels[GameManager.instance.currentLevel]);
+        if( PlayerPrefs.GetInt("Continue",0)==0)
+        {
+            currentLevel = 0;
+        }
+        else
+        {
+            currentLevel = PlayerPrefs.GetInt("CurrentLevel",0);
+        }
+        currentLevelData =  Instantiate(levels[currentLevel]);
     }
     public void NextLevel()
     {
+        int thisLevel = currentLevel;
         foreach (var gridManager in LevelManager.instance.gridManagers)
         {
             if(gridManager.CurrentStack!=null)
@@ -34,6 +46,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.instance.ResetScore();
         WaveController.instance.ResetWave();
         LevelManager.instance.Init();
+        PlayerPrefs.SetInt("CurrentLevel",currentLevel);
     }
   
 }

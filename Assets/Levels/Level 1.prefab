@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8c36ac65ff88e4eb01f7e43a5d7a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxProgress: 15
+  maxProgress: 10
   gridManagers:
   - {fileID: 7705385308659512147}
   - {fileID: 8442227815886096357}

@@ -20,8 +20,12 @@ public class MenuController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void StartButton()
     {
         
+    }
+    void ContinueButton()
+    {
+        Debug.Log("Continue Button Clicked");
     }
 }

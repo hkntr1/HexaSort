@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
 
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, direction, out hit, 1f))
+            if (Physics.Raycast(transform.position, direction, out hit,0.1f))
             {
                
                 Transform hitTransform = hit.transform;
