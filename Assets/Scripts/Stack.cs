@@ -89,7 +89,6 @@ public class Stack : MonoBehaviour
 
         stackTilesObjects.Add(newTile);
     }
- 
     public void TransferToOtherStack(Stack otherStack)
     {
         if (otherStack.isMatching || isMatching)
@@ -112,18 +111,18 @@ public class Stack : MonoBehaviour
                 otherStack.AddStackTileToStack(stackTilesObjects[i]);
                 stackTilesObjects.RemoveAt(i);
                 yield return new WaitForSeconds(0.1f);
+
             } 
             else
             {
-                otherStack.CheckBoom();
-                CheckBoom();
                 break;
             } 
-            isMatching = false;
-            otherStack.isMatching = false;
+           
         }
-
-        LevelManager.instance.CheckBoomAll();
+        yield return new WaitForSeconds(0.3f);
+        isMatching = false;
+        otherStack.isMatching = false;
+       LevelManager.instance.CheckBoomAll();
         LevelManager.onCheckNeeded.Invoke();
         CheckEmpty();
     }
